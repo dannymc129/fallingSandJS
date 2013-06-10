@@ -1,6 +1,7 @@
 var height=500
 var width=600
 var pixelSize = 2
+var delay=150
 var sands = []
 var canvas = document.getElementById('sandCanvas');
 var context = canvas.getContext('2d')
@@ -13,7 +14,7 @@ function loadSand() {
 	context.fillStyle = "black"
 	context.fillRect(0,0,width,height)
 
-	setInterval(function() { runSand() }, 100)
+	setTimeout(function() { runSand() }, delay)
 }
 
 function createSpec() {
@@ -52,10 +53,15 @@ function drawSpecs() {
 function runSand() {
 	createSpec()
 	runSpecs()
-
+	setTimeout(function() { runSand() }, delay)
 }
 
 
 $(document).ready(function() {
 	loadSand()
+
+	$("#delayRange").change(function(e) {
+		delay = parseInt($("#delayRange").val())
+		$("#delay").text(delay)
+	})
 })
